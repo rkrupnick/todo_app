@@ -1,30 +1,23 @@
 class TasksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
-  # GET /tasks
-  # GET /tasks.json
-  def index
-    @tasks = Task.all
+def index
+    @tasks = current_user.tasks
   end
 
-  # GET /tasks/1
-  # GET /tasks/1.json
-  def show
+def show
   end
 
-  # GET /tasks/new
-  def new
+def new
     @task = Task.new
   end
 
-  # GET /tasks/1/edit
-  def edit
+ def edit
   end
 
-  # POST /tasks
-  # POST /tasks.json
-  def create
-    @task = Task.new(task_params)
+ def create
+    @task = current_user.tasks.new(task_params)
 
     respond_to do |format|
       if @task.save
